@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookish Disco | Groovy Reads</title>
+    <style>
+        :root {
+            --disco-pink: #ff007a;
+            --disco-blue: #05d9e8;
+            --paper: #f4f1ea;
+            --night: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background-color: var(--night);
+            color: var(--paper);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            border: 2px solid var(--disco-pink);
+            box-shadow: 10px 10px 0px var(--disco-blue);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(to right, var(--disco-pink), var(--disco-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .ball {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #fff, #ccc);
+            border-radius: 50%;
+            margin: 20px auto;
+            box-shadow: 0 0 20px var(--disco-blue), 0 0 40px var(--disco-pink);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg) translateY(-5px); }
+            to { transform: rotate(360deg) translateY(-5px); }
+        }
+
+        .cta-button {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--disco-blue);
+            border: 1px solid var(--disco-blue);
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--disco-blue);
+            color: var(--night);
+            box-shadow: 0 0 15px var(--disco-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="ball"></div>
+        <h1>Bookish Disco</h1>
+        <p>"Where the library lights never dim and the prose always pops."</p>
+        <button class="cta-button">Browse the Collection</button>
+    </div>
+
+</body>
+</html>
