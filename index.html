@@ -3,94 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookish Disco | Groovy Reads</title>
+    <title>Bookish Disco | The Silent Rave</title>
     <style>
+        /* --- CSS STYLES --- */
         :root {
-            --disco-pink: #ff007a;
-            --disco-blue: #05d9e8;
-            --paper: #f4f1ea;
-            --night: #1a1a1a;
+            --bg-color: #0d0d12;
+            --text-color: #f0f0f0;
+            --primary: #ff0055; /* Neon Pink */
+            --secondary: #00e5ff; /* Cyan */
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
             margin: 0;
-            font-family: 'Georgia', serif;
-            background-color: var(--night);
-            color: var(--paper);
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace; /* Retro terminal vibe */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        /* The Container */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
         }
 
-        .container {
-            padding: 2rem;
-            border: 2px solid var(--disco-pink);
-            box-shadow: 10px 10px 0px var(--disco-blue);
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            max-width: 600px;
-        }
-
+        /* Typography */
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            background: linear-gradient(to right, var(--disco-pink), var(--disco-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Georgia', serif; /* The "Bookish" part */
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: -2px;
+        }
+        
+        h1 span {
+            font-family: 'Arial', sans-serif;
+            font-style: italic;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
         }
 
         p {
-            font-style: italic;
-            font-size: 1.2rem;
+            color: #888;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
             line-height: 1.6;
+        }
+
+        /* The CSS Disco Ball */
+        .disco-ball-container {
+            position: relative;
+            height: 100px;
+            margin-bottom: 2rem;
+        }
+
+        .line {
+            width: 2px;
+            height: 40px;
+            background: #555;
+            margin: 0 auto;
         }
 
         .ball {
             width: 80px;
             height: 80px;
-            background: radial-gradient(circle, #fff, #ccc);
             border-radius: 50%;
-            margin: 20px auto;
-            box-shadow: 0 0 20px var(--disco-blue), 0 0 40px var(--disco-pink);
-            animation: rotate 4s linear infinite;
+            background: radial-gradient(circle at 30% 30%, #fff, #888, #333);
+            margin: 0 auto;
+            position: relative;
+            /* Create the mirror tile effect */
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 2px,
+                transparent 2px,
+                transparent 10px
+            ), repeating-linear-gradient(
+                -45deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 2px,
+                transparent 2px,
+                transparent 10px
+            );
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            animation: swing 3s ease-in-out infinite alternate;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg) translateY(-5px); }
-            to { transform: rotate(360deg) translateY(-5px); }
-        }
-
-        .cta-button {
-            margin-top: 2rem;
-            padding: 1rem 2rem;
+        /* Button Styling */
+        button {
             background: transparent;
-            color: var(--disco-blue);
-            border: 1px solid var(--disco-blue);
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
-            font-family: 'Courier New', Courier, monospace;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-button:hover {
-            background: var(--disco-blue);
-            color: var(--night);
-            box-shadow: 0 0 15px var(--disco-blue);
+        button:hover {
+            background: var(--secondary);
+            color: #000;
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        /* --- PARTY MODE CLASSES (Toggled via JS) --- */
+        body.party-mode {
+            animation: strobe 0.5s infinite;
+        }
+
+        body.party-mode .ball {
+            animation: spin 1s linear infinite, glow 0.5s infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes swing {
+            from { transform: rotate(-5deg); }
+            to { transform: rotate(5deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes strobe {
+            0% { background-color: #0d0d12; }
+            25% { background-color: #1a000d; } /* Dark Pink tint */
+            50% { background-color: #001a1f; } /* Dark Blue tint */
+            75% { background-color: #0d0d12; }
+            100% { background-color: #000; }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px var(--primary); }
+            to { box-shadow: 0 0 40px var(--secondary); }
+        }
+
+        /* Floating elements generated by JS */
+        .floater {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="ball"></div>
-        <h1>Bookish Disco</h1>
-        <p>"Where the library lights never dim and the prose always pops."</p>
-        <button class="cta-button">Browse the Collection</button>
+    <div class="card">
+        <div class="disco-ball-container">
+            <div class="line"></div>
+            <div class="ball"></div>
+        </div>
+        
+        <h1>Bookish <span>DISCO</span></h1>
+        <p>Read quietly. Dance loudly.<br>Press the button to toggle the vibe.</p>
+        
+        <button id="beatBtn" onclick="toggleParty()">Drop the Beat</button>
     </div>
 
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+        let isParty = false;
+        const body = document.body;
+        const btn = document.getElementById('beatBtn');
+        const symbols = ['📚', '✨', '💃', '🕺', '🎵', '📖'];
+
+        function toggleParty() {
+            isParty = !isParty;
+            
+            if (isParty) {
+                body.classList.add('party-mode');
+                btn.innerText = "Chill Out";
+                btn.style.borderColor = "var(--primary)";
+                btn.style.color = "var(--primary)";
+                btn.style.boxShadow = "0 0 20px var(--primary)";
+                startConfetti();
+            } else {
+                body.classList.remove('party-mode');
+                btn.innerText = "Drop the Beat";
+                btn.style.borderColor = "var(--secondary)";
+                btn.style.color = "var(--secondary)";
+                btn.style.boxShadow = "none";
+                stopConfetti();
+            }
+        }
+
+        // Generate floating emojis
+        let intervalId;
+        function startConfetti() {
+            intervalId = setInterval(() => {
+                const el = document.createElement('div');
+                el.classList.add('floater');
+                el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                // Random position
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = Math.random() * 100 + 'vh';
+                
+                document.body.appendChild(el);
+
+                // Cleanup DOM
+                setTimeout(() => {
+                    el.remove();
+                }, 2000);
+            }, 200); // New emoji every 200ms
+        }
+
+        function stopConfetti() {
+            clearInterval(intervalId);
+        }
+    </script>
 </body>
 </html>
